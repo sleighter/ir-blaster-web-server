@@ -1,0 +1,14 @@
+5a a5 aa 55 5a a5 aa 55 00 00 00 00 00 00 00 00   <= Control Seq | Separator
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   <= Separator   | Separator
+fa fc 00 00 37 27 6a 00 (cc 82) 54 2b e4 0d 43 b4   <= ??        | (Debounce Counter)
+02 00 00 00 78 c8 00 00 b4 29 cf 34 4a 64 78 26
+74 0a 82 df 9e ed e4 b1 3c 85 1e 6c 8d 7b ce f6
+86 96 aa f2 66 65 65 b7 cf 9e 81 6f ec 83 b1 b0
+fa c9 03 19 b8 af 15 ed a3 2b 26 04 7b 1d 0c 73
+fa cc f7 2b df 55 41 39 b5 34 a2 3e 8c b6 db d2
+bf 69 99 d1 6a 79 db ee 6e 99 ee cb e2 d4 c3 7d
+52 7f e5 d0 32 17 1f fb 5a a5 aa 55 5a a5 aa 55
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 f4 d0 00 00 37 27 ee 03
+cc 82 54 2b e4 0d 43 b4 02 00 00 00 58 c0 00 00
+b4 29 cf 34 4a 64 78 26 74 0a 82 df 9e ed e4 b1
