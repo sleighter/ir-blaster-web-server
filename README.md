@@ -5,8 +5,11 @@ Android device to be placed inside your home network.
 
 This project aims to provide a portable, web-deployable HTTP interface to these Wifi IR Blasters.
 
-The Broadlink e-control Android application uses UDP packets to send commands to the IR blaster. Since no API documentation
-is provided by the OEM, acket analysis is employed to determine the format of valid UDP packets.
+The Broadlink e-control Android application uses UDP packets to send commands to the IR blaster. Since no API documentation is provided by the OEM, packet analysis is employed to determine the format of valid UDP packets.
+
+Thankfully @mjg59 has done a great job parsing the packets here: https://github.com/mjg59/python-broadlink/blob/master/protocol.md
+
+
 
 #### Example UDP packet to toggle power on Onkyo Reciever
 ```
@@ -32,3 +35,6 @@ bf 69 99 d1 6a 79 db ee
 ```
 
 ## Usage
+
+## Credits
+ * @mjg59 for the python-broadlink library that saved me many hours of effort
