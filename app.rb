@@ -9,38 +9,38 @@ class App < Sinatra::Application
   end
 
   get "/discover" do
-    ::BroadlinkRM::Device.discover.to_hash.tap{|h| h[:mac] = h[:mac].map{|byte| byte.to_s(16)}.join(":")}.to_json
+    Device.discover.to_json
   end
 
   get "/devices" do
-    DB.db.keys("device_*").to_json
+    Device.all.to_json
   end
 
   post "/device" do
-    DB.db.set(device_db_key(params['mac']), params.to_json)
+    Device.create!(params)
   end
 
-  post "/:device/learn_command/:cmd_name/:timeout" do |device, cmd_name, timeout|
-    device_config = JSON.parse(DB.db.get(device_db_key(device)))
-    mac = device_config['mac'].split(":").map{|byte| byte.to_i(16)}
-    device = ::BroadlinkRM::Device.new(host: device_config['host'], port: device_config['port'], mac: mac)
-    device.auth
-    device.enter_learning
-    sleep(timeout.to_i % 31)
-    cmd = device.check_data
-    DB.db.set(cmd_name, cmd)
+  post "/:device_id/learn_command/:cmd_name/:timeout" do |device_id, cmd_name, timeout|
+    Device.new(device_id).learn(cmd_name, timeout.to_i)
   end
 
-  get "/:device/:cmd_name" do |device,cmd_name|
-    command = JSON.parse(DB.db.get(cmd_name))
-    device_config = JSON.parse(DB.db.get(device_db_key(device)))
-    mac = device_config['mac'].split(":").map{|byte| byte.to_i(16)}
-    d = ::BroadlinkRM::Device.new(host: device_config['host'], port: device_config['port'], mac: mac)
-    d.auth
-    d.send_data(command)
+  #put "/:device_id/:cmd_name" do |device_id,cmd_name|
+  #  unless @device = Device.new(device_id)
+  #    raise "Device #{device_id} is not configured. Post device params to /device to register the device."
+  #  end
+  #  @device.send_command(cmd_name)
+  #end
+
+  put %r{/(?<device_id>[a-zA-Z0-9]{12})/(?<cmd_list>[a-z_\-\+]+)} do |device_id, cmd_list|
+    unless @device = Device.new(device_id)
+      raise "Device #{device_id} is not configured. Post device params to /device to register the device."
+    end
+    cmd_list.split("+").each do |cmd_name|
+      @device.send_command(cmd_name)
+    end
   end
 
-  def device_db_key(mac)
-    "device_#{mac.gsub(':', "").downcase}"
+  get "/:device_id/commands" do |device_id|
+    Device.new(device_id).commands
   end
 end

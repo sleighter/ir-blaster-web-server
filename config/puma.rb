@@ -1,6 +1,6 @@
-threads Integer(ENV['PUMA_THREADS']  || 8), Integer(ENV['PUMA_THREADS'] || 8)
+threads Integer(ENV['PUMA_THREADS']  || 1), Integer(ENV['PUMA_THREADS'] || 8)
 
-workers Integer(ENV['PUMA_WORKERS'] || 3)
+workers Integer(ENV['PUMA_WORKERS'] || 1)
 
 app_dir = File.expand_path("../..", __FILE__)
 shared_dir = "#{app_dir}/shared"

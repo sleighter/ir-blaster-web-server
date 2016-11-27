@@ -1,1 +1,3 @@
 .env
+puma.state
+puma.pid
