@@ -29,7 +29,11 @@ class App < Sinatra::Application
       raise "Device #{device_id} is not configured. Post device params to /device to register the device."
     end
     cmd_list.split("+").each do |cmd_name|
-      @device.send_command(cmd_name)
+      if cmd_name =~ /^wait_([0-9]){1}$/
+        sleep((/^wait_([0-9]){1,2}$/.match("wait_45")[1].to_i % 10))
+      else
+        @device.send_command(cmd_name)
+      end
     end
   end
 
