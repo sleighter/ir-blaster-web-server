@@ -24,14 +24,7 @@ class App < Sinatra::Application
     Device.new(device_id).learn(cmd_name, timeout.to_i)
   end
 
-  #put "/:device_id/:cmd_name" do |device_id,cmd_name|
-  #  unless @device = Device.new(device_id)
-  #    raise "Device #{device_id} is not configured. Post device params to /device to register the device."
-  #  end
-  #  @device.send_command(cmd_name)
-  #end
-
-  put %r{/(?<device_id>[a-zA-Z0-9]{12})/(?<cmd_list>[a-z_\-\+]+)} do |device_id, cmd_list|
+  put %r{/(?<device_id>[a-zA-Z0-9]{12})/(?<cmd_list>[a-zA-Z0-9_\-\+]+)} do |device_id, cmd_list|
     unless @device = Device.new(device_id)
       raise "Device #{device_id} is not configured. Post device params to /device to register the device."
     end
