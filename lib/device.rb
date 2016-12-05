@@ -17,7 +17,9 @@ class Device
     end
 
     def create!(params)
-      DB.db.set(device_config_db_key(noramlize_mac(params[:mac])), params.to_json)
+      mac = params[:mac]
+      key = device_config_db_key(normalize_mac(mac))
+      DB.db.set(key, params.to_json)
       new(mac)
     end
 
